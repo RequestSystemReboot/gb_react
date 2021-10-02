@@ -1,4 +1,11 @@
-.letters {
-    font-size: large;
-    color: brown;
+.MessageDiv {
+  border: 1px dashed;
+}
+
+.Text {
+  font-size: large;
+}
+
+.Attrs {
+  font-size: x-small;
 }
