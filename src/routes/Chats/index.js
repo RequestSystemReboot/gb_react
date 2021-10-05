@@ -15,17 +15,19 @@ import {
 import { Chat } from "./Routes/Chat";
 import { getChatByIdPath, getChatsPath } from "../../navigation";
 import { Link, Redirect, Route, Switch, useParams } from "react-router-dom";
+import { createChat } from "../../App";
+import { chatsConnect } from "../../connects/chatsConnect";
 
-export const Chats = ({
-  ChatItems,
+const ChatsRender = ({
+  chatsList,
+  chatsPopItem,
+  chatsAddItem,
   setDarkTheme,
   DarkTheme,
-  AddChat,
-  DeleteChat,
 }) => {
   const { chatId } = useParams();
 
-  const chat = ChatItems.find(({ id }) => id === chatId);
+  const chat = chatsList.find(({ id }) => id === chatId);
 
   if (chatId && !chat) {
     return <Redirect to={getChatsPath()} />;
@@ -36,9 +38,10 @@ export const Chats = ({
       <Grid container spacing={1} className={styles.App}>
         <Grid item xs={3} className={styles.ChatList}>
           <List sx={{ width: "100%", height: "85vh", overflow: "auto" }}>
-            {ChatItems.map((chat) => (
+            {chatsList.map((chat) => (
               <ListItem key={chat.id}>
                 <ListItemButton>
+                  <Button onClick={() => chatsPopItem(chat.id)}>Pop</Button>
                   <ListItemText>
                     <Link to={getChatByIdPath(chat.id)}>{chat.name}</Link>
                   </ListItemText>
@@ -46,14 +49,13 @@ export const Chats = ({
               </ListItem>
             ))}
           </List>
-          <Button onClick={() => AddChat()}>Add</Button>
-          <Button onClick={() => DeleteChat()}>Pop</Button>
+          <Button onClick={() => chatsAddItem(createChat())}>Add</Button>
         </Grid>
         <Grid item xs={9} className={styles.Messages}>
           <Switch>
             <Route
               path={getChatByIdPath()}
-              render={() => <Chat key={chatId} name={chat.name} />}
+              render={() => <Chat name={chat.name} chat_id={chat.id} />}
             />
           </Switch>
         </Grid>
@@ -62,6 +64,7 @@ export const Chats = ({
             <FormControlLabel
               control={
                 <UISwitch
+                    checked={DarkTheme}
                   onChange={() => {
                     setDarkTheme(!DarkTheme);
                   }}
@@ -75,3 +78,5 @@ export const Chats = ({
     </Container>
   );
 };
+
+export const Chats = chatsConnect(ChatsRender);
