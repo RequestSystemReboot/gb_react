@@ -9,8 +9,13 @@ import {
 } from "@material-ui/core";
 import { getChatByIdPath, getProfilePath } from "../../navigation";
 import { Link as RouterLink } from "react-router-dom";
+import {useSelector} from "react-redux";
+import {chatsListSelector} from "../../store/chats/selectors";
 
-export const Home = ({ ChatItems }) => {
+export const Home = () => {
+
+  const chatsList = useSelector(chatsListSelector)
+
   return (
     <Container>
       <Grid container spacing={2}>
@@ -22,7 +27,7 @@ export const Home = ({ ChatItems }) => {
               </Link>
             </ListItem>
             <Divider />
-            {ChatItems.map((chat) => (
+            {chatsList.map((chat) => (
               <ListItem key={chat.id}>
                 <Link component={RouterLink} to={getChatByIdPath(chat.id)}>
                   {chat.name}

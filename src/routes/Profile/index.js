@@ -1,12 +1,12 @@
 import React from "react";
 import { Checkbox, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { SAMPLE_CHECK } from "../../components/Redux/profile/actionTypes";
+import { SAMPLE_CHECK } from "../../store/profile/actionTypes";
 
 export const Profile = () => {
   const dispatch = useDispatch();
   const ticked = useSelector((state) => {
-    return state.ticked
+    return state.ticked;
   });
 
   return (
