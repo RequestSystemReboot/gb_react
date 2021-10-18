@@ -1,14 +1,14 @@
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { messagesSelector } from "../store/messages/selectors";
-import { messagesAddItem } from "../store/messages/actionTypes";
+import {createAddMessage} from "../store/messages/actions";
 
 const mapStateToProps = (state) => ({
   messages: messagesSelector(state),
 });
 
 const mapDispatchToProps = {
-  messagesAddItem,
+  createAddMessage,
 };
 
 export const messagesMapStateConnect = connect(mapStateToProps);

@@ -1,27 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./message_input.module.css";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 
-export const MessageInput = ({ onSend }) => {
-  const [InputText, setInputText] = useState("");
-  const [Sent, setSent] = useState(true);
-
+export const MessageInput = ({ value, onSubmit, onChange }) => {
   const TextInputRef = React.useRef(null);
 
   React.useEffect(() => {
     TextInputRef.current.focus();
-  }, [Sent]);
+  }, []);
 
-  function ChangeText(e) {
-    setInputText(e.target.value);
-  }
 
-  function Send() {
-    onSend(InputText, "Human", "blue");
-    setSent(!Sent);
-    setInputText("");
-  }
 
   return (
     <div className={styles.Container}>
@@ -31,14 +20,14 @@ export const MessageInput = ({ onSend }) => {
         label="Write message"
         variant="outlined"
         size="small"
-        value={InputText}
-        onChange={ChangeText}
+        value={value}
+        onChange={onChange}
         className={styles.Input}
       />
       <Button
         variant="contained"
         color="primary"
-        onClick={() => Send()}
+        onClick={onSubmit}
         className={styles.Button}
       >
         Send
@@ -46,3 +35,21 @@ export const MessageInput = ({ onSend }) => {
     </div>
   );
 };
+
+
+export const SendMessageForm = ({value, isLoading, isError, onSubmit, onChange}) => {
+    return (<div>
+        <input value={value} onChange={onChange} type="text"/>
+        <button onClick={onSubmit}>send</button>
+        {
+            isLoading && <div>
+                loading...
+            </div>
+        }
+        {
+            isError && <div>
+                error
+            </div>
+        }
+    </div>)
+}

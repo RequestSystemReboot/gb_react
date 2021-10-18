@@ -12,7 +12,7 @@ import {
   ListItemText,
   Switch as UISwitch,
 } from "@material-ui/core";
-import { Chat } from "./Routes/Chat";
+import { Chat } from "./Routes/Chat/containers/Chat";
 import { getChatByIdPath, getChatsPath } from "../../navigation";
 import { Link, Redirect, Route, Switch, useParams } from "react-router-dom";
 import { createChat } from "../../App";

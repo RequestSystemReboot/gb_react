@@ -1,11 +1,11 @@
-import { MESSAGES_ADD_ITEM } from "./actionTypes";
+import { ADD_MESSAGE } from "./actions";
 
 const initialState = {
   messages: {},
 };
 export const messagesReducer = (state = initialState, action) => {
   switch (action?.type) {
-    case MESSAGES_ADD_ITEM: {
+    case ADD_MESSAGE: {
       const chat_id = action.chat_id;
       let newMessages = { ...state.messages };
       newMessages[chat_id] = [...(newMessages[chat_id] || []), action.payload];
