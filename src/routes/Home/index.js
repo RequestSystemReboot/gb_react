@@ -7,7 +7,7 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
-import { getChatByIdPath, getProfilePath } from "../../navigation";
+import {getChatByIdPath, getCovidPath, getProfilePath} from "../../navigation";
 import { Link as RouterLink } from "react-router-dom";
 import {useSelector} from "react-redux";
 import {chatsListSelector} from "../../store/chats/selectors";
@@ -24,6 +24,11 @@ export const Home = () => {
             <ListItem>
               <Link component={RouterLink} to={getProfilePath()}>
                 Profile
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link component={RouterLink} to={getCovidPath()}>
+                Covid
               </Link>
             </ListItem>
             <Divider />

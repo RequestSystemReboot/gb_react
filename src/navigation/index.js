@@ -7,6 +7,8 @@ export const getHomePath = () => "";
 
 export const getProfilePath = () => "/profile";
 
+export const getCovidPath = () => "/covid";
+
 export const getChatsPath = () => composePath(getHomePath(), "chats");
 
 export const getChatByIdPath = (chatId = ":chatId") =>
