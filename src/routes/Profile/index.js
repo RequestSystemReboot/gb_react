@@ -1,13 +1,20 @@
-import React from "react";
-import { Checkbox, Grid } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { SAMPLE_CHECK } from "../../store/profile/actionTypes";
+import React, {useCallback, useEffect, useState} from "react";
+import { Button, Grid } from "@material-ui/core";
+import {auth, profileRef} from "../../firebase";
 
 export const Profile = () => {
-  const dispatch = useDispatch();
-  const ticked = useSelector((state) => {
-    return state.ticked;
-  });
+
+  const [Name, setName] = useState('Unknown')
+
+    const onProfileChange = useCallback((snapshot) => {
+        if (auth.currentUser) {
+            setName(snapshot.val()[auth.currentUser.uid])
+        }
+    }, []);
+
+    useEffect(() => {
+        profileRef.on("value", onProfileChange);
+    }, []);
 
   return (
     <Grid container>
@@ -15,16 +22,16 @@ export const Profile = () => {
         <h2>Profile</h2>
       </Grid>
       <Grid item xs={12}>
-        <Checkbox
-          checked={ticked}
-          onChange={() => {
-            dispatch({
-              type: SAMPLE_CHECK,
-            });
-          }}
-        >
-          Sample
-        </Checkbox>
+        Your name: {Name}
+        <Grid item xs={12}>
+          <Button
+            onClick={() => {
+              auth.signOut();
+            }}
+          >
+            Logout
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );

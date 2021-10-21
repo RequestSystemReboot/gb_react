@@ -3,21 +3,26 @@ import faker from "faker";
 import { Layout } from "./components/Layout";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "./routes/Routes";
-import { useDispatch } from "react-redux";
-import { chatsAddList } from "./store/chats/actionTypes";
+import {chatsRef, messagesRef} from "./firebase";
 
-export const createChat = () => ({
-  id: faker.datatype.uuid(),
-  name: faker.vehicle.manufacturer(),
-});
+export const createChat = () => {
+  const id = faker.datatype.uuid();
+  chatsRef.child(id).set(faker.vehicle.manufacturer());
+};
+
+export const popChat = (id) => {
+  chatsRef.child(id).remove();
+};
 
 function App() {
   const [DarkTheme, setDarkTheme] = useState(false);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(chatsAddList(Array.from({ length: 7 }).map(createChat)));
+    chatsRef.remove();
+    messagesRef.remove();
+    for (let i = 0; i < 5; i++) {
+      createChat();
+    }
   }, []);
 
   return (

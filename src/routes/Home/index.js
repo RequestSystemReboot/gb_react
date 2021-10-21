@@ -7,20 +7,32 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
-import {getChatByIdPath, getCovidPath, getProfilePath} from "../../navigation";
+import {
+  getChatsPath,
+  getCovidPath,
+  getLoginPath,
+  getProfilePath,
+  getSignUpPath,
+} from "../../navigation";
 import { Link as RouterLink } from "react-router-dom";
-import {useSelector} from "react-redux";
-import {chatsListSelector} from "../../store/chats/selectors";
 
 export const Home = () => {
-
-  const chatsList = useSelector(chatsListSelector)
-
   return (
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <List sx={{ width: "100%" }}>
+            <ListItem>
+              <Link component={RouterLink} to={getLoginPath()}>
+                Login
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link component={RouterLink} to={getSignUpPath()}>
+                Sign Up
+              </Link>
+            </ListItem>
+            <Divider />
             <ListItem>
               <Link component={RouterLink} to={getProfilePath()}>
                 Profile
@@ -31,14 +43,11 @@ export const Home = () => {
                 Covid
               </Link>
             </ListItem>
-            <Divider />
-            {chatsList.map((chat) => (
-              <ListItem key={chat.id}>
-                <Link component={RouterLink} to={getChatByIdPath(chat.id)}>
-                  {chat.name}
-                </Link>
-              </ListItem>
-            ))}
+            <ListItem>
+              <Link component={RouterLink} to={getChatsPath()}>
+                Chats
+              </Link>
+            </ListItem>
           </List>
         </Grid>
       </Grid>
