@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 
-export const useSendMessageForm = ({ onSend, chat_id }) => {
+export const useSendMessageForm = ({ onSend }) => {
     const [value, setValue] = useState('');
 
     const resetValue = () => setValue('');
@@ -12,7 +12,7 @@ export const useSendMessageForm = ({ onSend, chat_id }) => {
         if (value.length === 0) {
             return
         }
-        onSend(value, chat_id);
+        onSend(value);
         resetValue()
     }
 
