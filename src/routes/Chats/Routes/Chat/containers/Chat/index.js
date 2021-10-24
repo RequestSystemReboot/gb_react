@@ -5,12 +5,15 @@ import { MessageInput } from "../../components/MessageInput";
 import { useSendMessageForm } from "../../hooks/useSendMessageForm";
 import { useDispatch, useSelector } from "react-redux";
 import { messagesSelector } from "../../../../../../store/messages/selectors";
-import {fetchUsername, getUserName} from "../../../../../../store/profile/actions";
+import {
+  fetchUsername,
+  getUserName,
+} from "../../../../../../store/profile/actions";
 import {
   createAddMessageRequest,
   fetchMessages,
 } from "../../../../../../store/messages/actions";
-import {auth} from "../../../../../../firebase";
+import { auth } from "../../../../../../firebase";
 
 export const Chat = ({ chat_id, name }) => {
   const MessagesObj = useSelector(messagesSelector);
@@ -24,7 +27,6 @@ export const Chat = ({ chat_id, name }) => {
     dispatch(fetchUsername(auth.currentUser.uid));
   }, []);
 
-
   const onSendMessage = (messageText) => {
     dispatch(createAddMessageRequest(username, chat_id, messageText));
   };
@@ -32,8 +34,6 @@ export const Chat = ({ chat_id, name }) => {
   const [inputValue, { onChange, onSubmit }] = useSendMessageForm({
     onSend: onSendMessage,
   });
-
-
 
   return (
     <Container>

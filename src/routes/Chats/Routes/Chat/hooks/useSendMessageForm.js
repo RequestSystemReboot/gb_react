@@ -6,7 +6,7 @@ export const useSendMessageForm = ({ onSend }) => {
 
     const resetValue = () => setValue('');
 
-    const onChange = (event) => setValue(event.target.value);
+    const onChange = setValue;
 
     const onSubmit = () => {
         if (value.length === 0) {
