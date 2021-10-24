@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Chats.module.css";
 import {
   Button,
@@ -15,17 +15,21 @@ import {
 import { Chat } from "./Routes/Chat/containers/Chat";
 import { getChatByIdPath, getChatsPath } from "../../navigation";
 import { Link, Redirect, Route, Switch, useParams } from "react-router-dom";
-import { createChat } from "../../App";
 import { chatsConnect } from "../../connects/chatsConnect";
 
 const ChatsRender = ({
   chatsList,
-  chatsPopItem,
-  chatsAddItem,
+  createAddChatRequest,
+  createPopChatRequest,
+  fetchChats,
   setDarkTheme,
   DarkTheme,
 }) => {
   const { chatId } = useParams();
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
 
   const chat = chatsList.find(({ id }) => id === chatId);
 
@@ -41,7 +45,9 @@ const ChatsRender = ({
             {chatsList.map((chat) => (
               <ListItem key={chat.id}>
                 <ListItemButton>
-                  <Button onClick={() => chatsPopItem(chat.id)}>Pop</Button>
+                  <Button onClick={() => createPopChatRequest(chat.id)}>
+                    Pop
+                  </Button>
                   <ListItemText>
                     <Link to={getChatByIdPath(chat.id)}>{chat.name}</Link>
                   </ListItemText>
@@ -49,7 +55,7 @@ const ChatsRender = ({
               </ListItem>
             ))}
           </List>
-          <Button onClick={() => chatsAddItem(createChat())}>Add</Button>
+          <Button onClick={() => createAddChatRequest()}>Add</Button>
         </Grid>
         <Grid item xs={9} className={styles.Messages}>
           <Switch>
@@ -64,7 +70,7 @@ const ChatsRender = ({
             <FormControlLabel
               control={
                 <UISwitch
-                    checked={DarkTheme}
+                  checked={DarkTheme}
                   onChange={() => {
                     setDarkTheme(!DarkTheme);
                   }}

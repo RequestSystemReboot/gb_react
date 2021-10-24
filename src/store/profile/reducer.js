@@ -1,14 +1,15 @@
-import { SAMPLE_CHECK } from "./actionTypes";
+import { SET_USERNAME } from "./actions";
 
 const initialState = {
   ticked: false,
+  username: ''
 };
 
 export const profileReducer = (state = initialState, action) => {
   switch (action?.type) {
-    case SAMPLE_CHECK: {
+    case SET_USERNAME: {
       return {
-        ticked: !state.ticked,
+        username: action.payload,
       };
     }
     default: {

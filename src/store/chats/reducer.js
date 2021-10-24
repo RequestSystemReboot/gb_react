@@ -1,4 +1,4 @@
-import { CHATS_ADD_ITEM, CHATS_ADD_LIST, CHATS_POP_ITEM } from "./actionTypes";
+import { CHATS_ADD_ITEM, CHATS_ADD_LIST, CHATS_POP_ITEM } from "./actions";
 
 const initialState = {
   chats: [],
