@@ -1,6 +1,6 @@
 import { CHATS_ADD_ITEM, CHATS_ADD_LIST, CHATS_POP_ITEM } from "./actions";
 
-const initialState = {
+export const initialState = {
   chats: [],
 };
 export const chatsReducer = (state = initialState, action) => {
