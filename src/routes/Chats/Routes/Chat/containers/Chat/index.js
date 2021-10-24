@@ -2,12 +2,21 @@ import React from "react";
 import { Messages } from "../../components/Messages";
 import { Container, Grid } from "@material-ui/core";
 import { MessageInput } from "../../components/MessageInput";
+import { messagesConnect } from "../../../../../../connects/messagesConnect";
+import { createAddMessageRequest } from "../../../../../../store/messages/actions";
+import { useDispatch } from "react-redux";
 import { useSendMessageForm } from "../../hooks/useSendMessageForm";
 
-export const Chat = ({ chat_id, name, messages, onSend }) => {
+const ChatRender = ({ chat_id, name, messages }) => {
+  const MessageList = messages.messages[chat_id] || [];
+  const dispatch = useDispatch();
+
+  const onSendMessage = async (messageText) => {
+    dispatch(createAddMessageRequest(chat_id, messageText));
+  };
+
   const [inputValue, { onChange, onSubmit }] = useSendMessageForm({
-    onSend: onSend,
-    chat_id: chat_id,
+    onSend: onSendMessage,
   });
 
   return (
@@ -15,7 +24,7 @@ export const Chat = ({ chat_id, name, messages, onSend }) => {
       <Grid container>
         <Grid item xs={12}>
           {name}
-          <Messages messages={messages} />
+          <Messages messages={MessageList} />
         </Grid>
         <Grid item xs={12}>
           <MessageInput
@@ -28,3 +37,5 @@ export const Chat = ({ chat_id, name, messages, onSend }) => {
     </Container>
   );
 };
+
+export const Chat = messagesConnect(ChatRender);
