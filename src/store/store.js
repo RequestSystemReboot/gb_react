@@ -3,21 +3,16 @@ import { profileReducer } from "./profile/reducer";
 import { chatsReducer } from "./chats/reducer";
 import { messagesReducer } from "./messages/reducer";
 import { COVIDReducer } from "./covid/reducer";
+import {userReducer} from "./user/reducer";
 import thunk from "redux-thunk";
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'
-
-const persistConfig = {
-  key: 'messages',
-  storage,
-  whitelist: ['messages']
-}
+import { persistStore } from 'redux-persist';
 
 const allReducers = combineReducers({
   profile: profileReducer,
   chats: chatsReducer,
   covid: COVIDReducer,
-  messages: persistReducer(persistConfig, messagesReducer),
+  user: userReducer,
+  messages: messagesReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

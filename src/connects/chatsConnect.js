@@ -4,8 +4,8 @@ import { chatsListSelector, chatsSelector } from "../store/chats/selectors";
 import {
   chatsAddItem,
   chatsAddList,
-  chatsPopItem,
-} from "../store/chats/actionTypes";
+  chatsPopItem, createAddChatRequest, createPopChatRequest, fetchChats,
+} from "../store/chats/actions";
 
 const mapStateToProps = (state) => ({
   chats: chatsSelector(state),
@@ -16,6 +16,9 @@ const mapDispatchToProps = {
   chatsAddItem,
   chatsAddList,
   chatsPopItem,
+  createAddChatRequest,
+  createPopChatRequest,
+  fetchChats
 };
 
 export const chatsMapStateConnect = connect(mapStateToProps);

@@ -1,1 +1,1 @@
-export const messagesSelector = (state) => state.messages || {};
+export const messagesSelector = (state) => state.messages.messages;
